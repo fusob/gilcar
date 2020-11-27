@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 </head>
+
 <body>
-    <form action="/action_page.php">
-   <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile">
-  <input type="submit">
-        
     <script type="text/javascript">
-function performClick(elemId) {
-   var elem = document.getElementById(elemId);
-   if(elem && document.createEvent) {
-      var evt = document.createEvent("MouseEvents");
-      evt.initEvent("click", true, false);
-      elem.dispatchEvent(evt);
-   }
-}
-</script>
-<a href="#" onclick="performClick('theFile');">Open file dialog</a>
-<input type="file" id="theFile" />
-</form>
-   
-    <a href="intent://*#Intent;action=Intent.ACTION_GET_CONTENT;end;" id="clickTarget">Click Here to redirect</a>
-    
+        function fileselected(elemId) {
+            var elem = document.getElementById(elemId);
+            var file = document.forms["fileForm"]["myfile"].files[0];
+            var tmppath = URL.createObjectURL(file);
+            document.getElementById("openfile").href = tmppath;
+        }
+    </script>
+    <form id="fileForm" action="/action_page.php">
+        <label for="myfile">Select a file:</label>
+        <input type="file" id="myfile" name="myfile" onchange="fileselected('myfile')" />
+        <!-- <input type="submit" /> -->
+
+        <hr />
+        <a id="openfile" href="#"> open file</a>
+    </form>
+
+    <!-- <a href="intent://*#Intent;action=Intent.ACTION_GET_CONTENT;end;" id="clickTarget">Click Here to redirect</a> -->
 </body>
+
 </html>
